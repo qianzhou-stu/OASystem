@@ -28,6 +28,7 @@
     </mvc:annotation-driven>
     <!--
     使用tomcat默认配置的default-servlet处理器 使用tomcat默认的default-servlet处理器
+    静态资源的放行
     -->
     <mvc:default-servlet-handler/>
 
