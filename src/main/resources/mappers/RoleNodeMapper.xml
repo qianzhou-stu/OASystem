@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andreas.oa.dao.RoleNodeMapper">
+  <resultMap id="BaseResultMap" type="com.andreas.oa.pojo.RoleNode">
+    <id column="rn_id" jdbcType="BIGINT" property="rnId" />
+    <result column="role_id" jdbcType="BIGINT" property="roleId" />
+    <result column="node_id" jdbcType="BIGINT" property="nodeId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rn_id, role_id, node_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role_node
+    where rn_id = #{rnId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_role_node
+    where rn_id = #{rnId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.andreas.oa.pojo.RoleNode">
+    insert into sys_role_node (rn_id, role_id, node_id
+      )
+    values (#{rnId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{nodeId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.andreas.oa.pojo.RoleNode">
+    insert into sys_role_node
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rnId != null">
+        rn_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="nodeId != null">
+        node_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rnId != null">
+        #{rnId,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="nodeId != null">
+        #{nodeId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.andreas.oa.pojo.RoleNode">
+    update sys_role_node
+    <set>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="nodeId != null">
+        node_id = #{nodeId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where rn_id = #{rnId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.andreas.oa.pojo.RoleNode">
+    update sys_role_node
+    set role_id = #{roleId,jdbcType=BIGINT},
+      node_id = #{nodeId,jdbcType=BIGINT}
+    where rn_id = #{rnId,jdbcType=BIGINT}
+  </update>
+</mapper>

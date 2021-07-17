@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andreas.oa.dao.MajorMapper">
+  <resultMap id="BaseResultMap" type="com.andreas.oa.pojo.Major">
+    <id column="major_id" jdbcType="BIGINT" property="majorId" />
+    <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    major_id, major_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from adm_major
+    where major_id = #{majorId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from adm_major
+    where major_id = #{majorId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.andreas.oa.pojo.Major">
+    insert into adm_major (major_id, major_name)
+    values (#{majorId,jdbcType=BIGINT}, #{majorName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.andreas.oa.pojo.Major">
+    insert into adm_major
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="majorId != null">
+        major_id,
+      </if>
+      <if test="majorName != null">
+        major_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="majorId != null">
+        #{majorId,jdbcType=BIGINT},
+      </if>
+      <if test="majorName != null">
+        #{majorName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.andreas.oa.pojo.Major">
+    update adm_major
+    <set>
+      <if test="majorName != null">
+        major_name = #{majorName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where major_id = #{majorId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.andreas.oa.pojo.Major">
+    update adm_major
+    set major_name = #{majorName,jdbcType=VARCHAR}
+    where major_id = #{majorId,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectMajors" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from adm_major;
+  </select>
+
+</mapper>

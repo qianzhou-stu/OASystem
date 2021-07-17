@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andreas.oa.dao.ProcessFlowMapper">
+  <resultMap id="BaseResultMap" type="com.andreas.oa.pojo.ProcessFlow">
+    <id column="process_id" jdbcType="BIGINT" property="processId" />
+    <result column="form_id" jdbcType="BIGINT" property="formId" />
+    <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
+    <result column="action" jdbcType="VARCHAR" property="action" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime" />
+    <result column="order_no" jdbcType="INTEGER" property="orderNo" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="is_last" jdbcType="INTEGER" property="isLast" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    process_id, form_id, operator_id, `action`, `result`, reason, create_time, audit_time, 
+    order_no, `state`, is_last
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from adm_process_flow
+    where process_id = #{processId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from adm_process_flow
+    where process_id = #{processId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.andreas.oa.pojo.ProcessFlow">
+    insert into adm_process_flow (process_id, form_id, operator_id, 
+      `action`, `result`, reason, 
+      create_time, audit_time, order_no, 
+      `state`, is_last)
+    values (#{processId,jdbcType=BIGINT}, #{formId,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT}, 
+      #{action,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{auditTime,jdbcType=TIMESTAMP}, #{orderNo,jdbcType=INTEGER}, 
+      #{state,jdbcType=VARCHAR}, #{isLast,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.andreas.oa.pojo.ProcessFlow">
+    insert into adm_process_flow
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="processId != null">
+        process_id,
+      </if>
+      <if test="formId != null">
+        form_id,
+      </if>
+      <if test="operatorId != null">
+        operator_id,
+      </if>
+      <if test="action != null">
+        `action`,
+      </if>
+      <if test="result != null">
+        `result`,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="auditTime != null">
+        audit_time,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="isLast != null">
+        is_last,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="processId != null">
+        #{processId,jdbcType=BIGINT},
+      </if>
+      <if test="formId != null">
+        #{formId,jdbcType=BIGINT},
+      </if>
+      <if test="operatorId != null">
+        #{operatorId,jdbcType=BIGINT},
+      </if>
+      <if test="action != null">
+        #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditTime != null">
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="isLast != null">
+        #{isLast,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.andreas.oa.pojo.ProcessFlow">
+    update adm_process_flow
+    <set>
+      <if test="formId != null">
+        form_id = #{formId,jdbcType=BIGINT},
+      </if>
+      <if test="operatorId != null">
+        operator_id = #{operatorId,jdbcType=BIGINT},
+      </if>
+      <if test="action != null">
+        `action` = #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        `result` = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditTime != null">
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="isLast != null">
+        is_last = #{isLast,jdbcType=INTEGER},
+      </if>
+    </set>
+    where process_id = #{processId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.andreas.oa.pojo.ProcessFlow">
+    update adm_process_flow
+    set form_id = #{formId,jdbcType=BIGINT},
+      operator_id = #{operatorId,jdbcType=BIGINT},
+      `action` = #{action,jdbcType=VARCHAR},
+      `result` = #{result,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      order_no = #{orderNo,jdbcType=INTEGER},
+      `state` = #{state,jdbcType=VARCHAR},
+      is_last = #{isLast,jdbcType=INTEGER}
+    where process_id = #{processId,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByFormId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from adm_process_flow where form_id = #{formId}
+  </select>
+</mapper>

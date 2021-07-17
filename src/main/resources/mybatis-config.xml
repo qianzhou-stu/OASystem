@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+    </settings>
+<!--    <plugins>-->
+<!--        &lt;!&ndash;配置mybatis plus的分页的插件&ndash;&gt;-->
+<!--        <plugin interceptor="com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor"></plugin>-->
+<!--    </plugins>-->
+<!--    <mappers>-->
+<!--        <mapper class="com.andreas.oa.dao.DepartmentMapper"/>-->
+<!--        <mapper class="com.andreas.oa.dao.MajorMapper"/>-->
+<!--    </mappers>-->
+</configuration>

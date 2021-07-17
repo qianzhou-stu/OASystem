@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andreas.oa.dao.NodeMapper">
+    <resultMap id="BaseResultMap" type="com.andreas.oa.pojo.Node">
+        <id column="node_id" jdbcType="BIGINT" property="nodeId"/>
+        <result column="node_type" jdbcType="INTEGER" property="nodeType"/>
+        <result column="node_name" jdbcType="VARCHAR" property="nodeName"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="node_code" jdbcType="INTEGER" property="nodeCode"/>
+        <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        node_id
+        , node_type, node_name, url, node_code, parent_id
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_node
+        where node_id = #{nodeId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from sys_node
+        where node_id = #{nodeId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.andreas.oa.pojo.Node">
+        insert into sys_node (node_id, node_type, node_name,
+                              url, node_code, parent_id)
+        values (#{nodeId,jdbcType=BIGINT}, #{nodeType,jdbcType=INTEGER}, #{nodeName,jdbcType=VARCHAR},
+                #{url,jdbcType=VARCHAR}, #{nodeCode,jdbcType=INTEGER}, #{parentId,jdbcType=BIGINT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.andreas.oa.pojo.Node">
+        insert into sys_node
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="nodeId != null">
+                node_id,
+            </if>
+            <if test="nodeType != null">
+                node_type,
+            </if>
+            <if test="nodeName != null">
+                node_name,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="nodeCode != null">
+                node_code,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="nodeId != null">
+                #{nodeId,jdbcType=BIGINT},
+            </if>
+            <if test="nodeType != null">
+                #{nodeType,jdbcType=INTEGER},
+            </if>
+            <if test="nodeName != null">
+                #{nodeName,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="nodeCode != null">
+                #{nodeCode,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.andreas.oa.pojo.Node">
+        update sys_node
+        <set>
+            <if test="nodeType != null">
+                node_type = #{nodeType,jdbcType=INTEGER},
+            </if>
+            <if test="nodeName != null">
+                node_name = #{nodeName,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="nodeCode != null">
+                node_code = #{nodeCode,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=BIGINT},
+            </if>
+        </set>
+        where node_id = #{nodeId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.andreas.oa.pojo.Node">
+        update sys_node
+        set node_type = #{nodeType,jdbcType=INTEGER},
+            node_name = #{nodeName,jdbcType=VARCHAR},
+            url       = #{url,jdbcType=VARCHAR},
+            node_code = #{nodeCode,jdbcType=INTEGER},
+            parent_id = #{parentId,jdbcType=BIGINT}
+        where node_id = #{nodeId,jdbcType=BIGINT}
+    </update>
+    <select id="selectNode" parameterType="Long" resultMap="BaseResultMap">
+        select distinct n.*
+        from sys_role_user ru,
+             sys_role_node rn,
+             sys_node n
+        where ru.role_id = rn.role_id
+          and user_id = #{userId}
+          and rn.node_id = n.node_id
+        order by n.node_code
+    </select>
+</mapper>
